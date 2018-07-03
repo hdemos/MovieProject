@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Post
         xRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
         xAdapter = new MovieAdapter(this, movies, this);
         xRecyclerView.setAdapter(xAdapter);
-        tryIT();
+        tempPopulatePosters();
         //getMovies();
     }
 
@@ -100,12 +100,7 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Post
     }
 
 
-
-
-
-
-
-    public void tryIT() {
+    public void tempPopulatePosters() {
 
 
         for (int i = 0; i<20; i++)
