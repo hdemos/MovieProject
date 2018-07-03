@@ -23,18 +23,20 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     private List<com.example.android.popularmoviespt1.Movie> xMovieList;
     private LayoutInflater xInflater;
     private Context xContext;
-    private CustomClickListener listener;
+    //private CustomClickListener listener;
+    final private PosterItemClickListener xOnClickListener;
 
 
-    public MovieAdapter(Context context, List<Movie> movies)
+    public MovieAdapter(Context context, List<Movie> movies, PosterItemClickListener listener)
     {
         this.xContext = context;
         this.xInflater = LayoutInflater.from(context);
         this.xMovieList = new ArrayList<>();
+        xOnClickListener = listener;
     }
 
 
-    public static class MovieViewHolder extends RecyclerView.ViewHolder {
+    public class MovieViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public ImageView imageView;
         public TextView title;
 
@@ -42,10 +44,14 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
             super(itemView);
             imageView = (ImageView) itemView.findViewById(R.id.imageView);
             title = (TextView) itemView.findViewById(R.id.title);
+            itemView.setOnClickListener(this);
 
+        }
 
-
-
+        @Override
+        public void onClick(View v) {
+            int clickedPosition = getAdapterPosition();
+            xOnClickListener.onListItemClick(clickedPosition);
         }
     }
 
@@ -96,6 +102,10 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     }
 
 
+    //creating listener interface for RV
+    public interface PosterItemClickListener {
+        void onListItemClick(int clickItemIndex);
+    }
 
 
 

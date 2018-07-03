@@ -9,6 +9,7 @@ import android.support.v7.util.SortedList;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
@@ -27,12 +28,13 @@ import retrofit2.Response;
 
 import static android.widget.AdapterView.*;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements MovieAdapter.PosterItemClickListener {
 
     private RecyclerView xRecyclerView;
     private MovieAdapter xAdapter;
     private static final String TAG = "MainActivity";
     private List<Movie> movies = new ArrayList<>();
+
 
 
 
@@ -52,10 +54,10 @@ public class MainActivity extends AppCompatActivity {
 
         xRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         xRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
-        xAdapter = new MovieAdapter(this, movies);
+        xAdapter = new MovieAdapter(this, movies, this);
         xRecyclerView.setAdapter(xAdapter);
-
-        getMovies();
+        tryIT();
+        //getMovies();
     }
 
     private void getMovies() {
@@ -83,28 +85,40 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int itemId = item.getItemId();
+
+        //switch case
+        return true;
+        //return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onListItemClick(int clickedItemIndex) {
+        launchDetailActivity(clickedItemIndex);
+    }
 
 
 
 
-//        for (int i = 0; i<20; i++)
-//        {
-//            //revisit logic again
-//            movies.add(new Movie());
-//        }
-//        xAdapter.setxMovieList(movies);
 
-//        xRecyclerView.setOnClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-//                //launchDetailActivity(position);
+
+
+    public void tryIT() {
+
+
+        for (int i = 0; i<20; i++)
+        {
+            //revisit logic again
+            movies.add(new Movie());
+        }
+        xAdapter.setxMovieList(movies);
+
+
+    }
+
 //
-//            }
-//        });
-
-
-//
-
 
 
 
