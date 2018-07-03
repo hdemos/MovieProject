@@ -1,23 +1,38 @@
 package com.example.android.popularmoviespt1;
 
+import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 //import android.support.v7.widget.Toolbar;
 import android.support.v7.util.SortedList;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Downloader;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+import static android.widget.AdapterView.*;
 
 public class MainActivity extends AppCompatActivity {
 
     private RecyclerView xRecyclerView;
     private MovieAdapter xAdapter;
+    private static final String TAG = "MainActivity";
+    private List<Movie> movies = new ArrayList<>();
 
 
 
@@ -26,21 +41,72 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //TODO 3: reference recyclerview
         setContentView(R.layout.activity_main);
-        xRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
-        //TODO 4: create new Movie getters and setters class
-        xRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
-        xAdapter = new MovieAdapter(this);
-        xRecyclerView.setAdapter(xAdapter);
-        List<Movie> movies = new ArrayList<>();
+        Log.d(TAG, "onCreate: started");
 
-        for (int i = 0; i<20; i++)
-        {
-            //revisit logic again
-            movies.add(new Movie());
-        }
-        xAdapter.setxMovieList(movies);
+        //String[] movieList = getResources().getStringArray(R.array.sandwich_names);
+        //Log.i("Main_Activity", "got the following for movie names: " + movieList[1]);
+
+        //String Prabhu = "popularity.desc";
+        //PopMovieUtils.buildURl(Prabhu);
+
+        xRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+        xRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+        xAdapter = new MovieAdapter(this, movies);
+        xRecyclerView.setAdapter(xAdapter);
+
+        getMovies();
+    }
+
+    private void getMovies() {
+
+        MoviesAPIService moviesAPIService = PopMovieUtils.createService(MoviesAPIService.class);
+        Call<List<Movie>> call = moviesAPIService.getMovies();
+        call.enqueue(new Callback<List<Movie>>() {
+            @Override
+            public void onResponse(Call<List<Movie>> call, Response<List<Movie>> response) {
+                if(response.isSuccessful()){
+                    for( Movie movie: response.body()) {
+                        movies.add(movie);
+                        Log.d(TAG, "test");
+                    }
+                    xAdapter.setxMovieList(movies);
+                }else{ Log.e(TAG, "fail " + response.message()); }
+            }
+
+            @Override
+            public void onFailure(Call<List<Movie>> call, Throwable t) {
+                Log.e(TAG, "onFailure:  " + t.getMessage() +" /n");
+                t.printStackTrace();
+                Log.e(TAG, "more details: "+ call);
+            }
+        });
+    }
+
+
+
+
+
+//        for (int i = 0; i<20; i++)
+//        {
+//            //revisit logic again
+//            movies.add(new Movie());
+//        }
+//        xAdapter.setxMovieList(movies);
+
+//        xRecyclerView.setOnClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+//                //launchDetailActivity(position);
+//
+//            }
+//        });
+
+
+//
+
+
+
 
         //added below, fix to work :(
 //        RestAdapter restAdapter = new RestAdapter.Builder()
@@ -65,14 +131,17 @@ public class MainActivity extends AppCompatActivity {
 //                error.printStackTrace();
 //            }
 //        });
-    }
+
+
     //TODO 6: Add viewHolder class. VIewHolder holds a reference to the views in the row layout.
-    public static class MovieViewHolder extends RecyclerView.ViewHolder {
-        public ImageView imageView;
-        public MovieViewHolder(View itemView) {
-            super(itemView);
-            imageView = (ImageView) itemView.findViewById(R.id.imageView);
-        }
+
+
+    public void launchDetailActivity(int position) {
+        Intent intent = new Intent(this, DetailActivity.class);
+
+
+        intent.putExtra(DetailActivity.EXTRA_POSITION, position);
+        startActivity(intent);
     }
 
 //    //delete method if doesn't work
