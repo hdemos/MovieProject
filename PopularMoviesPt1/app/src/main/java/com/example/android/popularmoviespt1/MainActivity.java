@@ -1,6 +1,7 @@
 package com.example.android.popularmoviespt1;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -33,7 +34,7 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Post
     private RecyclerView xRecyclerView;
     private MovieAdapter xAdapter;
     private static final String TAG = "MainActivity";
-    private List<Movie> movies = new ArrayList<>();
+    private ArrayList<Movie> movies = new ArrayList<>();
 
 
 
@@ -114,6 +115,13 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Post
     }
 
 //
+    public class FetchMovies extends AsyncTask<Void,Void,Void> {
+        @Override
+    protected Void doInBackground(Void... voids) {
+
+            return null;
+        }
+}
 
 
 
@@ -148,8 +156,9 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Post
     public void launchDetailActivity(int position) {
         Intent intent = new Intent(this, DetailActivity.class);
 
-
-        intent.putExtra(DetailActivity.EXTRA_POSITION, position);
+        String posterAddress = "https://i.pinimg.com/originals/a2/e4/c4/a2e4c4ace4ed0eb1a730359b514cbbb9.jpg";
+        intent.putExtra(DetailActivity.EXTRA_POSITION, position); //correct way
+        intent.putExtra("poster_img", posterAddress);
         startActivity(intent);
     }
 

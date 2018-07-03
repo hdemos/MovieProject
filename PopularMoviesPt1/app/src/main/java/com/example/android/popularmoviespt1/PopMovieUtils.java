@@ -8,6 +8,7 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import com.google.gson.Gson;
@@ -19,9 +20,10 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class PopMovieUtils {
+    private static final String TAG = PopMovieUtils.class.getSimpleName();
 
     final static String API_KEY = "69e9f8e34637b9e6f6f8e56ce742d1dc"; //set to null when submitting
-    final static String MOVIE_BASE_URL = "https://api.themoviedb.org/3/movie/";
+    final static String MOVIE_BASE_URL = "https://api.themoviedb.org/3/discover/movie/";
     private static Retrofit retrofit = null;
     private static Gson gson = new GsonBuilder().create();
 
@@ -40,6 +42,8 @@ public class PopMovieUtils {
         }
         return retrofit.create(movieClass);
     }
+
+
 //
 //    final static String PARAM_QUERY = "?";
 //    final static String PARAM_SORT = "sort_by";

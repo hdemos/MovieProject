@@ -23,7 +23,7 @@ public interface MoviesAPIService {
 
         // Request method and URL specified in the annotation
 
-        @GET("550?api_key="+ API_KEY)
+        @GET("?sort_by=popylarity.desc&api_key="+API_KEY)
         Call<List<Movie>> getMovies();
 
 //        @GET("films")
