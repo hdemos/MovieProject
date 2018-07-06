@@ -15,26 +15,24 @@ import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
-import static com.example.android.popularmoviespt1.PopMovieUtils.API_KEY;
+//import static com.example.android.popularmoviespt1.PopMovieUtils.API_KEY;
 
 public interface MoviesAPIService {
 
+    final static String API_KEY = "69e9f8e34637b9e6f6f8e56ce742d1dc";
     //https://api.themoviedb.org/3/movie/76341?api_key={api_key}
 
         // Request method and URL specified in the annotation
 
-        @GET("550?api_key="+ API_KEY)
-        Call<List<Movie>> getMovies();
+    //get top rated to start with
 
-//        @GET("films")
-//        Call<List<Movie>> getMovies();
-//
-//        @POST("users/new")
-//        Call<User> createUser(@Body User user);
+    @GET("movie/top_rated")
+    Call<MovieResponse> getTopRatedMovies(@Query("api_key") String API_KEY);
 
+//    @GET("movie/{id}")
+//    Call<MovieResponse> getMovieDetails(@Path("id") int id, @Query("api_key") String API_KEY);
 
 
-// @GET("/movie/popular")
-//    void getPopularMovies(Callback<Movie.MovieResult> cb);
+
 
 }

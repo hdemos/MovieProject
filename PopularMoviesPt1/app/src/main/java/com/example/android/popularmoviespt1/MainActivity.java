@@ -26,12 +26,13 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import static android.widget.AdapterView.*;
+import static com.example.android.popularmoviespt1.PopMovieUtils.API_KEY;
 
 public class MainActivity extends AppCompatActivity {
 
     private RecyclerView xRecyclerView;
     private MovieAdapter xAdapter;
-    private static final String TAG = "MainActivity";
+    private static final String TAG = MainActivity.class.getSimpleName();
     private List<Movie> movies = new ArrayList<>();
 
 
@@ -44,38 +45,39 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Log.d(TAG, "onCreate: started");
 
+        if(API_KEY.isEmpty()) {
+            Toast.makeText(getApplicationContext(), "Please put in your API Key in PopMovieUtils class.", Toast.LENGTH_LONG).show();
+        }
+
         //String[] movieList = getResources().getStringArray(R.array.sandwich_names);
         //Log.i("Main_Activity", "got the following for movie names: " + movieList[1]);
 
-        //String Prabhu = "popularity.desc";
-        //PopMovieUtils.buildURl(Prabhu);
 
         xRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         xRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
-        xAdapter = new MovieAdapter(this, movies);
+
+        getTopMovies();
+        xAdapter = new MovieAdapter(this, movies, R.layout.r_movie);
         xRecyclerView.setAdapter(xAdapter);
 
-        getMovies();
+
     }
 
-    private void getMovies() {
+    private void getTopMovies() {
 
-        MoviesAPIService moviesAPIService = PopMovieUtils.createService(MoviesAPIService.class);
-        Call<List<Movie>> call = moviesAPIService.getMovies();
-        call.enqueue(new Callback<List<Movie>>() {
+        MoviesAPIService moviesAPIService = PopMovieUtils.getClient().create(MoviesAPIService.class);
+        Call<MovieResponse> call = moviesAPIService.getTopRatedMovies(API_KEY);
+        call.enqueue(new Callback<MovieResponse>() {
             @Override
-            public void onResponse(Call<List<Movie>> call, Response<List<Movie>> response) {
-                if(response.isSuccessful()){
-                    for( Movie movie: response.body()) {
-                        movies.add(movie);
-                        Log.d(TAG, "test");
-                    }
-                    xAdapter.setxMovieList(movies);
-                }else{ Log.e(TAG, "fail " + response.message()); }
+            public void onResponse(Call<MovieResponse>call, Response<MovieResponse> response) {
+
+                List<Movie> movies = response.body().getResults();
+                Log.d(TAG, "Received "+movies.size() + " movies like: " + movies.get(3));
+
             }
 
             @Override
-            public void onFailure(Call<List<Movie>> call, Throwable t) {
+            public void onFailure(Call<MovieResponse> call, Throwable t) {
                 Log.e(TAG, "onFailure:  " + t.getMessage() +" /n");
                 t.printStackTrace();
                 Log.e(TAG, "more details: "+ call);
@@ -83,54 +85,9 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    private void getMovieDetails() {
 
-
-
-
-//        for (int i = 0; i<20; i++)
-//        {
-//            //revisit logic again
-//            movies.add(new Movie());
-//        }
-//        xAdapter.setxMovieList(movies);
-
-//        xRecyclerView.setOnClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-//                //launchDetailActivity(position);
-//
-//            }
-//        });
-
-
-//
-
-
-
-
-        //added below, fix to work :(
-//        RestAdapter restAdapter = new RestAdapter.Builder()
-//                .setEndpoint("http://api.themoviedb.org/3")
-//                .setRequestInterceptor(new RequestInterceptor() {
-//                    @Override
-//                    public void intercept(RequestFacade request) {
-//                        request.addEncodedQueryParam("api_key", "YOUR_API_KEY");
-//                    }
-//                })
-//                .setLogLevel(RestAdapter.LogLevel.FULL)
-//                .build();
-//        MoviesAPIService service = restAdapter.create(MoviesAPIService.class);
-//        service.getPopularMovies(new SortedList.Callback<Movie.MovieResult>() {
-//            @Override
-//            public void success(Movie.MovieResult movieResult, Downloader.Response response) {
-//                xAdapter.setxMovieList(movieResult.getResults());
-//            }
-//
-//            @Override
-//            public void failure(RetrofitError error) {
-//                error.printStackTrace();
-//            }
-//        });
+    }
 
 
     //TODO 6: Add viewHolder class. VIewHolder holds a reference to the views in the row layout.
@@ -144,31 +101,6 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-//    //delete method if doesn't work
-//    public void initializeRetrofit() {
-//        RestAdapter restAdapter = new RestAdapter.Builder()
-//                .setEndpoint("http://api.themoviedb.org/3")
-//                .setRequestInterceptor(new RequestInterceptor() {
-//                    @Override
-//                    public void intercept(RequestFacade request) {
-//                        request.addEncodedQueryParam("api_key", "YOUR_API_KEY");
-//                    }
-//                })
-//                .setLogLevel(RestAdapter.LogLevel.FULL)
-//                .build();
-//        MoviesAPIService service = restAdapter.create(MoviesAPIService.class);
-//        service.getPopularMovies(new SortedList.Callback<Movie.MovieResult>() {
-//            @Override
-//            public void success(Movie.MovieResult movieResult, Downloader.Response response) {
-//                xAdapter.setMovieList(movieResult.getResults());
-//            }
-//
-//            @Override
-//            public void failure(RetrofitError error) {
-//                error.printStackTrace();
-//            }
-//        });
-//    }
 
 }
 

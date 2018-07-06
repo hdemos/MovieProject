@@ -27,51 +27,46 @@ public class PopMovieUtils {
     private static final String TAG = PopMovieUtils.class.getSimpleName();
 
     final static String API_KEY = "69e9f8e34637b9e6f6f8e56ce742d1dc"; //set to null when submitting
-    final static String MOVIE_BASE_URL = "https://api.themoviedb.org/3/movie/";
+    final static String MOVIE_BASE_URL = "https://api.themoviedb.org/3/";
     private static Retrofit retrofit = null;
-    private static Gson gson = new GsonBuilder().create();
 
-    private static HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
-    private static OkHttpClient.Builder okHttpClientBuilder = new OkHttpClient.Builder().addInterceptor(httpLoggingInterceptor);
 
-    private static OkHttpClient okHttpClient = okHttpClientBuilder.build();
-
-    public static <T> T createService(Class<T> movieClass){
-        if(retrofit ==null) {
+    public static Retrofit getClient() {
+        if (retrofit==null) {
             retrofit = new Retrofit.Builder()
-                    .client(okHttpClient)
                     .baseUrl(MOVIE_BASE_URL)
-                    .addConverterFactory(GsonConverterFactory.create(gson))
+                    .addConverterFactory(GsonConverterFactory.create())
                     .build();
         }
-        return retrofit.create(movieClass);
-    }
-
-    public static void parseJson(String data, ArrayList<Movie> list) {
-        JSONObject mainObject = new JSONObject(data);
-//TODO 10: change for my getters and setters
-        JSONArray resArray = mainObject.getJSONArray("results"); //Getting the results object
-        for (int i = 0; i < resArray.length(); i++) {
-            JSONObject jsonObject = resArray.getJSONObject(i);
-            Movie movie = new Movie(); //New Movie object
-            movie.setId(jsonObject.getInt("id"));
-            movie.setVoteAverage(jsonObject.getInt("vote_average"));
-            movie.setVoteCount(jsonObject.getInt("vote_count"));
-            movie.setOriginalTitle(jsonObject.getString("original_title"));
-            movie.setTitle(jsonObject.getString("title"));
-            movie.setPopularity(jsonObject.getDouble("popularity"));
-            movie.setBackdropPath(jsonObject.getString("backdrop_path"));
-            movie.setOverview(jsonObject.getString("overview"));
-            movie.setReleaseDate(jsonObject.getString("release_date"));
-            movie.setPosterPath(jsonObject.getString("poster_path"));
-            //Adding a new movie object into ArrayList
-            list.add(movie);
-        }
-    } catch (JSONException e) {
-        e.printStackTrace();
-        Log.e(TAG, "Erro occurred during JSON Parsing", e);
+        return retrofit;
     }
 }
+
+//    public static void parseJson(String data, ArrayList<Movie> list) {
+//        JSONObject mainObject = new JSONObject(data);
+////TODO 10: change for my getters and setters
+//        JSONArray resArray = mainObject.getJSONArray("results"); //Getting the results object
+//        for (int i = 0; i < resArray.length(); i++) {
+//            JSONObject jsonObject = resArray.getJSONObject(i);
+//            Movie movie = new Movie(); //New Movie object
+//            movie.setId(jsonObject.getInt("id"));
+//            movie.setVoteAverage(jsonObject.getInt("vote_average"));
+//            movie.setVoteCount(jsonObject.getInt("vote_count"));
+//            movie.setOriginalTitle(jsonObject.getString("original_title"));
+//            movie.setTitle(jsonObject.getString("title"));
+//            movie.setPopularity(jsonObject.getDouble("popularity"));
+//            movie.setBackdropPath(jsonObject.getString("backdrop_path"));
+//            movie.setOverview(jsonObject.getString("overview"));
+//            movie.setReleaseDate(jsonObject.getString("release_date"));
+//            movie.setPosterPath(jsonObject.getString("poster_path"));
+//            //Adding a new movie object into ArrayList
+//            list.add(movie);
+//        }
+//    } catch (JSONException e) {
+//        e.printStackTrace();
+//        Log.e(TAG, "Erro occurred during JSON Parsing", e);
+//    }
+//}
 //
 //    final static String PARAM_QUERY = "?";
 //    final static String PARAM_SORT = "sort_by";
@@ -134,5 +129,3 @@ public class PopMovieUtils {
 //        }
 //    }
 
-
-}
