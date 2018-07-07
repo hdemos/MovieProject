@@ -1,5 +1,6 @@
 package com.example.android.popularmoviespt1;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -7,6 +8,7 @@ import android.os.Bundle;
 //import android.support.v7.widget.Toolbar;
 import android.support.v7.util.SortedList;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
@@ -56,14 +58,14 @@ public class MainActivity extends AppCompatActivity {
         xRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         xRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
 
-        getTopMovies();
-        xAdapter = new MovieAdapter(this, movies, R.layout.r_movie);
-        xRecyclerView.setAdapter(xAdapter);
+        getTopMovies(getApplicationContext());
+
 
 
     }
 
-    private void getTopMovies() {
+
+    private void getTopMovies(final Context context) {
 
         MoviesAPIService moviesAPIService = PopMovieUtils.getClient().create(MoviesAPIService.class);
         Call<MovieResponse> call = moviesAPIService.getTopRatedMovies(API_KEY);
@@ -71,8 +73,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<MovieResponse>call, Response<MovieResponse> response) {
 
+                int statusCode = response.code();
                 List<Movie> movies = response.body().getResults();
-                Log.d(TAG, "Received "+movies.size() + " movies like: " + movies.get(3));
+                Log.d(TAG, "Received "+movies.size() + " movies like: " + movies.get(1));
+                xAdapter = new MovieAdapter(context, movies, R.layout.r_movie);
+                xRecyclerView.setAdapter(xAdapter);
 
             }
 
@@ -81,6 +86,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.e(TAG, "onFailure:  " + t.getMessage() +" /n");
                 t.printStackTrace();
                 Log.e(TAG, "more details: "+ call);
+                Log.e(TAG, t.toString());
             }
         });
     }

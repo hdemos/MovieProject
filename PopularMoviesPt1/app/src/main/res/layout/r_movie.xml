@@ -15,6 +15,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/title"
+        android:visibility="invisible"
         />
 
     <!--TODO 5: Create imageview xml in layout resource -->

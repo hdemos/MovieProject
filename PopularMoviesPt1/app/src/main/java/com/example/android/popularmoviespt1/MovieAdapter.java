@@ -60,7 +60,8 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     @Override
     public MovieAdapter.MovieViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
     {
-        View view = xInflater.from(parent.getContext()).inflate(R.layout.r_movie, parent, false);
+        //View view = xInflater.from(parent.getContext()).inflate(R.layout.r_movie, parent, false);
+        View view = xInflater.from(parent.getContext()).inflate(rowLayout, parent, false);
         final MovieViewHolder viewHolder = new MovieViewHolder(view);
 //        view.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -77,14 +78,23 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     @Override
     public void onBindViewHolder(MovieViewHolder holder, final int position)
     {
+//        /Movie movie = xMovieList.get(position);
+//        //TODO 7.2: Picasso image loading
+//        Picasso.with(xContext).load(movie.getPoster()).placeholder(R.color.colorAccent).into(holder.imageView);
+//        //attempt to learn string in RV
+//        holder.title.setText(movie.getTitle());
+//
+//        Log.d(TAG, "Title is: " + movie.getTitle());
 
-        Movie movie = xMovieList.get(position);
+
+        //Movie poster = xMovieList.get(position).getPoster().toString();
         //TODO 7.2: Picasso image loading
-        Picasso.with(xContext).load(movie.getPoster()).placeholder(R.color.colorAccent).into(holder.imageView);
+        //Picasso.with(xContext).load(movie.getPoster()).placeholder(R.color.colorAccent).into(holder.imageView);
+        Picasso.with(xContext).load(xMovieList.get(position).getPoster()).into(holder.imageView);
         //attempt to learn string in RV
-        holder.title.setText(movie.getTitle());
+        //holder.title.setText(xMovieList.get(position).getTitle());
 
-        Log.d(TAG, "Title is: " + movie.getTitle());
+        Log.d(TAG, "Title is: " + xMovieList.get(position).getPoster());
         //get remainder of things you want to pass here?
 
 
