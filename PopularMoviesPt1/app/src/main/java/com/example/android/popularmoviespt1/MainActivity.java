@@ -28,6 +28,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import static android.widget.AdapterView.*;
+
 import static com.example.android.popularmoviespt1.PopMovieUtils.API_KEY;
 
 public class MainActivity extends AppCompatActivity {
