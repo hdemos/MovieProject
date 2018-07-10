@@ -27,13 +27,14 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     private Context xContext;
     private CustomClickListener listener;
     private int rowLayout;
+    final private PosterItemClickListener xOnClickListener;
     private static final String TAG = MovieAdapter.class.getSimpleName();
 
 
 
 
 
-    public static class MovieViewHolder extends RecyclerView.ViewHolder {
+    public class MovieViewHolder extends RecyclerView.ViewHolder implements  View.OnClickListener{
 
         public ImageView imageView;
         public TextView title;
@@ -43,18 +44,25 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
             super(itemView);
             posterLayout = (LinearLayout) itemView.findViewById(R.id.posterLayout);
             imageView = (ImageView) itemView.findViewById(R.id.imageView);
+            itemView.setOnClickListener(this);
             //title = (TextView) itemView.findViewById(R.id.title);
 
 
         }
+        @Override
+        public void onClick(View v) {
+            int clickedPosition = getAdapterPosition();
+            xOnClickListener.onListItemClick(clickedPosition);
+        }
     }
-    public MovieAdapter(Context context, List<Movie> movies, int rowLayout)
+    public MovieAdapter(Context context, List<Movie> movies, int rowLayout, PosterItemClickListener listener)
     {
 
         this.xContext = context;
         this.xInflater = LayoutInflater.from(context);
         this.xMovieList = movies;
         this.rowLayout = rowLayout;
+        xOnClickListener = listener;
     }
 
     @Override
@@ -78,7 +86,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     @Override
     public void onBindViewHolder(MovieViewHolder holder, final int position)
     {
-//        /Movie movie = xMovieList.get(position);
+          Movie movie = xMovieList.get(position);
 //        //TODO 7.2: Picasso image loading
 //        Picasso.with(xContext).load(movie.getPoster()).placeholder(R.color.colorAccent).into(holder.imageView);
 //        //attempt to learn string in RV
@@ -95,6 +103,8 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         //holder.title.setText(xMovieList.get(position).getTitle());
 
         Log.d(TAG, "Title is: " + xMovieList.get(position).getPoster());
+        //holder.title.setText(movie.getTitle());
+        //holder.posterLayout.setText(movie.getPoster());
         //get remainder of things you want to pass here?
 
 
@@ -114,6 +124,10 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         this.xMovieList.addAll(movieList);
         //make sure to notifychange or will crash
         notifyDataSetChanged();
+    }
+
+    public interface PosterItemClickListener {
+        void onListItemClick(int clickItemIndex);
     }
 
 

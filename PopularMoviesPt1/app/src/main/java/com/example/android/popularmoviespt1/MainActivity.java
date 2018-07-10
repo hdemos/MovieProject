@@ -31,12 +31,14 @@ import static android.widget.AdapterView.*;
 
 import static com.example.android.popularmoviespt1.PopMovieUtils.API_KEY;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements MovieAdapter.PosterItemClickListener{
 
     private RecyclerView xRecyclerView;
     private MovieAdapter xAdapter;
     private static final String TAG = MainActivity.class.getSimpleName();
     private List<Movie> movies = new ArrayList<>();
+    MovieAdapter.PosterItemClickListener listener = null;
+    //OnItemClickListener listener;
 
 
 
@@ -58,15 +60,17 @@ public class MainActivity extends AppCompatActivity {
 
         xRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         xRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+        listener = this;
+        //xAdapter = new MovieAdapter(getApplicationContext(), movies, R.layout.r_movie, this);
+        getTopMovies(getApplicationContext(), listener);
 
-        getTopMovies(getApplicationContext());
 
 
 
     }
 
 
-    private void getTopMovies(final Context context) {
+    private void getTopMovies(final Context context, final MovieAdapter.PosterItemClickListener listener) {
 
         MoviesAPIService moviesAPIService = PopMovieUtils.getClient().create(MoviesAPIService.class);
         Call<MovieResponse> call = moviesAPIService.getTopRatedMovies(API_KEY);
@@ -77,7 +81,8 @@ public class MainActivity extends AppCompatActivity {
                 int statusCode = response.code();
                 List<Movie> movies = response.body().getResults();
                 Log.d(TAG, "Received "+movies.size() + " movies like: " + movies.get(1));
-                xAdapter = new MovieAdapter(context, movies, R.layout.r_movie);
+                //listener = this;
+                xAdapter = new MovieAdapter(context, movies, R.layout.r_movie, listener);
                 xRecyclerView.setAdapter(xAdapter);
 
             }
@@ -94,6 +99,11 @@ public class MainActivity extends AppCompatActivity {
 
     private void getMovieDetails() {
 
+    }
+
+    @Override
+    public void onListItemClick(int clickedItemIndex) {
+        launchDetailActivity(clickedItemIndex);
     }
 
 
