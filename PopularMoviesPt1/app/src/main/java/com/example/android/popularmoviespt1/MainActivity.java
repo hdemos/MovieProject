@@ -36,8 +36,10 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Post
     private RecyclerView xRecyclerView;
     private MovieAdapter xAdapter;
     private static final String TAG = MainActivity.class.getSimpleName();
-    private List<Movie> movies = new ArrayList<>();
+    public static List<Movie> movies = new ArrayList<>();
     MovieAdapter.PosterItemClickListener listener = null;
+
+    public ArrayList<Movie> mChosen = new ArrayList<>();
     //OnItemClickListener listener;
 
 
@@ -72,29 +74,41 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Post
 
     private void getTopMovies(final Context context, final MovieAdapter.PosterItemClickListener listener) {
 
-        MoviesAPIService moviesAPIService = PopMovieUtils.getClient().create(MoviesAPIService.class);
-        Call<MovieResponse> call = moviesAPIService.getTopRatedMovies(API_KEY);
-        call.enqueue(new Callback<MovieResponse>() {
-            @Override
-            public void onResponse(Call<MovieResponse>call, Response<MovieResponse> response) {
+        try {
+            MoviesAPIService moviesAPIService = PopMovieUtils.getClient().create(MoviesAPIService.class);
+            Call<MovieResponse> call = moviesAPIService.getTopRatedMovies(API_KEY);
+            call.enqueue(new Callback<MovieResponse>() {
+                @Override
+                public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
+                    int statusCode = response.code();
+                    if(response.isSuccessful()) {
+                        List<Movie> movies = response.body().getResults();
+                        if (xAdapter == null) {
+                            Log.d(TAG, "Received " + movies.size() + " movies like: " + movies.get(1));
+                            xAdapter = new MovieAdapter(context, movies, listener);
+                            xRecyclerView.setAdapter(xAdapter);
+                        } else {
+                            xAdapter.setxMovieList(movies);
+                            xAdapter.notifyDataSetChanged();
+                        }
+                    } else {
+                        Log.e(TAG, "Failed to load list Status Code=" + String.valueOf(statusCode));
+                    }
 
-                int statusCode = response.code();
-                List<Movie> movies = response.body().getResults();
-                Log.d(TAG, "Received "+movies.size() + " movies like: " + movies.get(1));
-                //listener = this;
-                xAdapter = new MovieAdapter(context, movies, R.layout.r_movie, listener);
-                xRecyclerView.setAdapter(xAdapter);
+                }
 
-            }
 
-            @Override
-            public void onFailure(Call<MovieResponse> call, Throwable t) {
-                Log.e(TAG, "onFailure:  " + t.getMessage() +" /n");
-                t.printStackTrace();
-                Log.e(TAG, "more details: "+ call);
-                Log.e(TAG, t.toString());
-            }
-        });
+                @Override
+                public void onFailure(Call<MovieResponse> call, Throwable t) {
+                    Log.e(TAG, "onFailure:  " + t.getMessage() + " /n");
+                    t.printStackTrace();
+                    Log.e(TAG, "more details: " + call);
+                    Log.e(TAG, t.toString());
+                }
+            });
+        }catch (Exception e){
+            Log.d(TAG, "No Connection "+ e.getMessage());
+        }
     }
 
     private void getMovieDetails() {
@@ -102,21 +116,35 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Post
     }
 
     @Override
-    public void onListItemClick(int clickedItemIndex) {
-        launchDetailActivity(clickedItemIndex);
-    }
+    public void onListItemClick(int position) {
+        //Bundle extras = getIntent().getExtras();
 
 
-    //TODO 6: Add viewHolder class. VIewHolder holds a reference to the views in the row layout.
+        //String poster_url = (String) getIntent().getStringExtra("poster_img");
+        //load poster from url
 
+            //int position = clickedItemIndex;
+            //displayMovie(position);
+        //Movie movieChosen = movies.get(position);
+            //Log.d(TAG, movieChosen.getTitle() + " \b" +movieChosen.getOverview());
 
-    public void launchDetailActivity(int position) {
+       // mChosen.add(movies.get(position));
+
+        //List<Movie> mChosen = movies[position];
         Intent intent = new Intent(this, DetailActivity.class);
 
 
+
         intent.putExtra(DetailActivity.EXTRA_POSITION, position);
+        //intent.putExtra("movie_chosen", mChosen);
         startActivity(intent);
+
+        //launchDetailActivity(clickedItemIndex);
     }
+
+
+
+
 
 
 }

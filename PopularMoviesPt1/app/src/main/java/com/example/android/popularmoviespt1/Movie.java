@@ -38,6 +38,17 @@ public class Movie
         this.poster_path = poster_path;
         this.overview = overview;
 
+
+    }
+    public Movie(String title, boolean adult, String poster_path, String overview, String release_date, Double vote_average) {
+
+        this.title = title;
+
+        this.poster_path = poster_path;
+        this.overview = overview;
+        setRelease_date(release_date);
+        setVote_average(vote_average);
+
     }
 
     public String getTitle() {

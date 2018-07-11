@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import com.example.android.popularmoviespt1.Movie;
 
 import com.squareup.picasso.Picasso;
 
@@ -25,9 +26,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     private List<Movie> xMovieList;
     private LayoutInflater xInflater;
     private Context xContext;
-    private CustomClickListener listener;
-    private int rowLayout;
-    final private PosterItemClickListener xOnClickListener;
+    private PosterItemClickListener xOnClickListener;
     private static final String TAG = MovieAdapter.class.getSimpleName();
 
 
@@ -40,7 +39,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         public TextView title;
         public LinearLayout posterLayout;
 
-        public MovieViewHolder(View itemView) {
+        public MovieViewHolder(View itemView, PosterItemClickListener xOnClickListener) {
             super(itemView);
             posterLayout = (LinearLayout) itemView.findViewById(R.id.posterLayout);
             imageView = (ImageView) itemView.findViewById(R.id.imageView);
@@ -52,16 +51,16 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         @Override
         public void onClick(View v) {
             int clickedPosition = getAdapterPosition();
+            Log.d(TAG, "clicked position: " + clickedPosition);
             xOnClickListener.onListItemClick(clickedPosition);
         }
     }
-    public MovieAdapter(Context context, List<Movie> movies, int rowLayout, PosterItemClickListener listener)
+    public MovieAdapter(Context context, List<Movie> movies, PosterItemClickListener listener)
     {
 
         this.xContext = context;
-        this.xInflater = LayoutInflater.from(context);
+        //this.xInflater = LayoutInflater.from(context);
         this.xMovieList = movies;
-        this.rowLayout = rowLayout;
         xOnClickListener = listener;
     }
 
@@ -69,38 +68,24 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     public MovieAdapter.MovieViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
     {
         //View view = xInflater.from(parent.getContext()).inflate(R.layout.r_movie, parent, false);
-        View view = xInflater.from(parent.getContext()).inflate(rowLayout, parent, false);
-        final MovieViewHolder viewHolder = new MovieViewHolder(view);
-//        view.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                listener.onItemClick(v, viewHolder.getPosition());
-//            }
-//        });
-        return viewHolder;
+        View view = xInflater.from(parent.getContext()).inflate(R.layout.r_movie, parent, false);
+        return new MovieViewHolder(view, xOnClickListener);
 
 
 
     }
 
     @Override
-    public void onBindViewHolder(MovieViewHolder holder, final int position)
+    public void onBindViewHolder(MovieViewHolder holder, int position)
     {
           Movie movie = xMovieList.get(position);
+          //holder.vote_average.setText(String.valueOf(movie.getVote_average()));
 //        //TODO 7.2: Picasso image loading
-//        Picasso.with(xContext).load(movie.getPoster()).placeholder(R.color.colorAccent).into(holder.imageView);
-//        //attempt to learn string in RV
-//        holder.title.setText(movie.getTitle());
 //
-//        Log.d(TAG, "Title is: " + movie.getTitle());
-
-
-        //Movie poster = xMovieList.get(position).getPoster().toString();
         //TODO 7.2: Picasso image loading
         //Picasso.with(xContext).load(movie.getPoster()).placeholder(R.color.colorAccent).into(holder.imageView);
         Picasso.with(xContext).load(xMovieList.get(position).getPoster()).into(holder.imageView);
-        //attempt to learn string in RV
-        //holder.title.setText(xMovieList.get(position).getTitle());
+
 
         Log.d(TAG, "Title is: " + xMovieList.get(position).getPoster());
         //holder.title.setText(movie.getTitle());
