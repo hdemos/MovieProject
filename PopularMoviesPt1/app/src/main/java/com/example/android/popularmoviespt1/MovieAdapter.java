@@ -1,6 +1,7 @@
 package com.example.android.popularmoviespt1;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.Layout;
 import android.util.Log;
@@ -53,6 +54,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
             int clickedPosition = getAdapterPosition();
             Log.d(TAG, "clicked position: " + clickedPosition);
             xOnClickListener.onListItemClick(clickedPosition);
+
         }
     }
     public MovieAdapter(Context context, List<Movie> movies, PosterItemClickListener listener)
@@ -65,7 +67,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     }
 
     @Override
-    public MovieAdapter.MovieViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
+    public MovieAdapter.MovieViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
     {
         //View view = xInflater.from(parent.getContext()).inflate(R.layout.r_movie, parent, false);
         View view = xInflater.from(parent.getContext()).inflate(R.layout.r_movie, parent, false);
@@ -81,13 +83,12 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
           Movie movie = xMovieList.get(position);
           //holder.vote_average.setText(String.valueOf(movie.getVote_average()));
 //        //TODO 7.2: Picasso image loading
-//
-        //TODO 7.2: Picasso image loading
         //Picasso.with(xContext).load(movie.getPoster()).placeholder(R.color.colorAccent).into(holder.imageView);
-        Picasso.with(xContext).load(xMovieList.get(position).getPoster()).into(holder.imageView);
+        Picasso.with(xContext).load(movie.getPoster()).into(holder.imageView);
 
 
-        Log.d(TAG, "Title is: " + xMovieList.get(position).getPoster());
+        Log.d(TAG, "Poster location is: " + xMovieList.get(position).getPoster());
+        Log.d(TAG, "Title is: " + xMovieList.get(position).getTitle());
         //holder.title.setText(movie.getTitle());
         //holder.posterLayout.setText(movie.getPoster());
         //get remainder of things you want to pass here?
@@ -105,8 +106,9 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 
     public void setxMovieList(List<Movie> movieList)
     {
-        this.xMovieList.clear();
-        this.xMovieList.addAll(movieList);
+//        this.xMovieList.clear();
+//        this.xMovieList.addAll(movieList);
+        xMovieList = movieList;
         //make sure to notifychange or will crash
         notifyDataSetChanged();
     }

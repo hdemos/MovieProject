@@ -1,11 +1,14 @@
 package com.example.android.popularmoviespt1;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Movie
+public class Movie implements Parcelable
 {
     @SerializedName("title")
     private String title;
@@ -40,15 +43,26 @@ public class Movie
 
 
     }
-    public Movie(String title, boolean adult, String poster_path, String overview, String release_date, Double vote_average) {
+    public Movie(String Title, boolean Adult, String Poster_path, String Overview, String Release_date, Double Vote_average) {
+        //note: we are setting the items here because we are not changing the data once recieved
+        //setters are added in the event this changes and we want to edit data
 
-        this.title = title;
+        //this.title = title;
 
-        this.poster_path = poster_path;
-        this.overview = overview;
-        setRelease_date(release_date);
-        setVote_average(vote_average);
+        //this.poster_path = poster_path;
+        //this.overview = overview;
+        title = Title;
+        poster_path = Poster_path;
+        overview = Overview;
+        release_date = Release_date;
+        vote_average = Vote_average;
 
+        //setRelease_date(release_date);
+        //setVote_average(vote_average);
+
+    }
+    private Movie(Parcel source) {
+        //pulling out data
     }
 
     public String getTitle() {
@@ -136,4 +150,34 @@ public class Movie
 //            return results; //pt2
 //        }
 //    }
+
+    @Override
+    public int describeContents() {return 0;}
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(title);
+        dest.writeString(poster_path);
+        dest.writeString(overview);
+        dest.writeString(backdrop);
+        dest.writeString(release_date);
+        dest.writeDouble(vote_average);
+        //dest.writeBooleanArray(hasVideo);?
+
+
+    }
+
+    public static final Parcelable.Creator<Movie> CREATOR = new Parcelable.Creator<Movie>() {
+        @Override
+        public Movie createFromParcel(Parcel source) {
+            return new Movie(source);
+            //uses private constructor
+        }
+
+        @Override
+        public Movie[] newArray(int size) {
+            return new Movie[size];
+            //knows the size of the constructor already
+        }
+    };
 }

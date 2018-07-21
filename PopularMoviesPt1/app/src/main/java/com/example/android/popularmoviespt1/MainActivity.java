@@ -11,6 +11,9 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
@@ -85,7 +88,8 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Post
                         List<Movie> movies = response.body().getResults();
                         if (xAdapter == null) {
                             Log.d(TAG, "Received " + movies.size() + " movies like: " + movies.get(1));
-                            xAdapter = new MovieAdapter(context, movies, listener);
+                           xAdapter = new MovieAdapter(context, movies, listener);  //has different
+
                             xRecyclerView.setAdapter(xAdapter);
                         } else {
                             xAdapter.setxMovieList(movies);
@@ -142,10 +146,44 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Post
         //launchDetailActivity(clickedItemIndex);
     }
 
-
-
-
-
-
+//    public void launchDetailActivity( Movie movie) {
+//        Intent intent = new Intent(this, DetailActivity.class);
+//
+//
+//
+//        intent.putExtra(DetailActivity.class, this);
+//        //intent.putExtra("movie_chosen", mChosen);
+//        startActivity(intent);
+//    }
+//
+//
+//
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        MenuInflater inflater = getMenuInflater();
+//        inflater.inflate(R.menu.main_menu, menu);
+//        return true;
+//    }
+//
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        int id = item.getItemId();
+//
+//        if (id == R.id.action_most_popular) {
+//            sortBy = popularity.desc;
+//            getTopMovies();
+//            return true;
+//
+//        }
+//        if (id == R.id.Action_highest_rated) {
+//
+//
+//            sortBy = vote_average.desc;
+//            getTopMovies();
+//            return true;
+//        }
+//
+//        return super.onOptionsItemSelected(item);
+//    }
 }
 
