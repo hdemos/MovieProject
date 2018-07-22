@@ -31,9 +31,13 @@ dependencies {
     implementation 'com.squareup.okhttp3:okhttp:3.9.1'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    implementation 'org.parceler:parceler-api:1.1.11'
+    annotationProcessor 'org.parceler:parceler:1.1.11'
     //TODO 1: add recyclerview & picasso dependencies
 }
 
 repositories {
     mavenCentral()
 }
+
+

@@ -1,6 +1,8 @@
 package com.example.android.popularmoviespt1;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.Layout;
@@ -15,6 +17,7 @@ import com.example.android.popularmoviespt1.Movie;
 
 import com.squareup.picasso.Picasso;
 
+import org.parceler.Parcels;
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
@@ -24,7 +27,7 @@ import java.util.List;
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHolder>
 {
 
-    private List<Movie> xMovieList;
+    private List<Movie> xMovieList = new ArrayList<>();
     private LayoutInflater xInflater;
     private Context xContext;
     private PosterItemClickListener xOnClickListener;
@@ -53,7 +56,19 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         public void onClick(View v) {
             int clickedPosition = getAdapterPosition();
             Log.d(TAG, "clicked position: " + clickedPosition);
+//            Intent i = new Intent(MainActivity.this, DetailActivity.class);
+//            intent.putExtra("title", )
+            Log.d(TAG, "set xOnClickListener");
+            ////THE CODE STOPS HERE AND GETS AN EMPTY ARRAY :(
             xOnClickListener.onListItemClick(clickedPosition);
+            //xMovieList.onListItemClick(clickedPosition);
+
+            //MainActivity.onListItemClick(clickedPosition);
+            //MainActivity.launchDetailActivity xyz = new launchDetailActivity(clickedPosition);
+
+           // MainActivity.launchDetailActivity(clickedPosition);
+            Log.d(TAG, "Launched detail activity)");
+
 
         }
     }
@@ -67,7 +82,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     }
 
     @Override
-    public MovieAdapter.MovieViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
+    public MovieAdapter.MovieViewHolder onCreateViewHolder( ViewGroup parent, int viewType)
     {
         //View view = xInflater.from(parent.getContext()).inflate(R.layout.r_movie, parent, false);
         View view = xInflater.from(parent.getContext()).inflate(R.layout.r_movie, parent, false);
@@ -83,10 +98,11 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
           Movie movie = xMovieList.get(position);
           //holder.vote_average.setText(String.valueOf(movie.getVote_average()));
 //        //TODO 7.2: Picasso image loading
-        //Picasso.with(xContext).load(movie.getPoster()).placeholder(R.color.colorAccent).into(holder.imageView);
-        Picasso.with(xContext).load(movie.getPoster()).into(holder.imageView);
-
-
+        Picasso.with(xContext).load(movie.getPoster()).placeholder(R.color.colorAccent).into(holder.imageView);
+        //Picasso.with(xContext).load(movie.getPoster()).into(holder.imageView);
+        Movie movie2 = xMovieList.get(position+1);
+        Log.d(TAG, "Title is a: " + xMovieList.get(position).getTitle());
+        Log.d(TAG, "Title is: " + movie2);
         Log.d(TAG, "Poster location is: " + xMovieList.get(position).getPoster());
         Log.d(TAG, "Title is: " + xMovieList.get(position).getTitle());
         //holder.title.setText(movie.getTitle());
@@ -114,7 +130,9 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     }
 
     public interface PosterItemClickListener {
+
         void onListItemClick(int clickItemIndex);
+        //Log.d(TAG, clickItemIndex);
     }
 
 

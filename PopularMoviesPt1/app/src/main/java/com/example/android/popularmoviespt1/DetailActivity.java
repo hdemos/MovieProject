@@ -10,6 +10,8 @@ import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
+import org.parceler.Parcels;
+
 import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -31,8 +33,11 @@ public class DetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_detail);
         //get specific movie info
 
+        Movie movie = (Movie) Parcels.unwrap(getIntent().getParcelableExtra("Movie"));
+        String title = movie.getTitle();
+        Log.d(TAG, title);
 
-        //Bundle extras = getIntent().getExtras();
+        Bundle extras = getIntent().getExtras();
         xTitle = findViewById(R.id.titleDetail);
         xOverView = findViewById(R.id.overview);
         xReleaseDate = findViewById(R.id.releaseDate);
@@ -41,6 +46,10 @@ public class DetailActivity extends AppCompatActivity {
 
 
         Intent intent = getIntent();
+       // Movie movie2 = intent.getParcelableExtra("Movie");
+
+//        String xTitle = movie.getTitle();
+//        Log.d(TAG, "title "+ xTitle);
 
 
         if(intent==null) {
@@ -53,18 +62,20 @@ public class DetailActivity extends AppCompatActivity {
             closeOnError();
             return;
         }
-        Movie movie = MainActivity.movies.get(position);
+        //Movie movie = MainActivity.movies.get(position);
+        String title2 = intent.getStringExtra("title");
+        Log.d(TAG, title);
 
-        xTitle.setText(movie.getTitle());
-        xOverView.setText(movie.getOverview());
-        xUserRating.setText(String.valueOf(movie.getVote_average()));
-        xReleaseDate.setText(movie.getRelease_date());
-        Picasso.with(this).load(movie.getPoster()).placeholder(R.color.colorAccent).into(imageView);
-
-
-        ArrayList<Movie> mChosen = new ArrayList<>();
-        mChosen = (ArrayList<Movie>) intent.getSerializableExtra("movie_chosen");
-        System.out.print(mChosen);
+        //xTitle.setText(movie.getTitle());
+//        xOverView.setText(movie.getOverview());
+//        xUserRating.setText(String.valueOf(movie.getVote_average()));
+//        xReleaseDate.setText(movie.getRelease_date());
+//        Picasso.with(this).load(movie.getPoster()).placeholder(R.color.colorAccent).into(imageView);
+//
+//
+//        ArrayList<Movie> mChosen = new ArrayList<>();
+//        //mChosen = (ArrayList<Movie>) intent.getSerializableExtra("movie_chosen");
+//        System.out.print(mChosen);
 
 
 

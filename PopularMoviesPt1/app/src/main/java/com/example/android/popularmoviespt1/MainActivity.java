@@ -19,6 +19,7 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import org.parceler.Parcels;
 
 import com.squareup.picasso.Downloader;
 import com.squareup.picasso.Picasso;
@@ -40,7 +41,7 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Post
     private MovieAdapter xAdapter;
     private static final String TAG = MainActivity.class.getSimpleName();
     public static List<Movie> movies = new ArrayList<>();
-    MovieAdapter.PosterItemClickListener listener = null;
+    MovieAdapter.PosterItemClickListener listener;
 
     public ArrayList<Movie> mChosen = new ArrayList<>();
     //OnItemClickListener listener;
@@ -57,18 +58,24 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Post
 
         if(API_KEY.isEmpty()) {
             Toast.makeText(getApplicationContext(), "Please put in your API Key in PopMovieUtils class.", Toast.LENGTH_LONG).show();
+            //for when other test the code
         }
 
         //String[] movieList = getResources().getStringArray(R.array.sandwich_names);
         //Log.i("Main_Activity", "got the following for movie names: " + movieList[1]);
 
 
-        xRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+        xRecyclerView = findViewById(R.id.recyclerView);
         xRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
-        listener = this;
-        //xAdapter = new MovieAdapter(getApplicationContext(), movies, R.layout.r_movie, this);
-        getTopMovies(getApplicationContext(), listener);
+        //listener = this;
 
+        //xAdapter = new MovieAdapter(getApplicationContext(), movies, R.layout.r_movie, this);
+
+        xAdapter = new MovieAdapter(getApplicationContext(), movies, listener);  //has different
+
+        xRecyclerView.setAdapter(xAdapter);
+        //xRecyclerView.setOnClickListener(listener);
+        getTopMovies(getApplicationContext(), listener);
 
 
 
@@ -129,32 +136,50 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Post
 
             //int position = clickedItemIndex;
             //displayMovie(position);
-        //Movie movieChosen = movies.get(position);
+        //Movie movie = movies.get(position);
             //Log.d(TAG, movieChosen.getTitle() + " \b" +movieChosen.getOverview());
 
-       // mChosen.add(movies.get(position));
+       //mChosen.add(movies.get(position));
 
-        //List<Movie> mChosen = movies[position];
+//        //List<Movie> mChosen = (List<>) movies<position>;
+        Movie movie = movies.get(position);
         Intent intent = new Intent(this, DetailActivity.class);
-
-
-
-        intent.putExtra(DetailActivity.EXTRA_POSITION, position);
-        //intent.putExtra("movie_chosen", mChosen);
+        intent.putExtra(DetailActivity.EXTRA_POSITION, movie);
         startActivity(intent);
+//
+//
+//
+//        intent.putExtra(DetailActivity.EXTRA_POSITION, position);
+////        intent.putExtra("Movie", Parcels.wrap(movies.get(position)));
+////        intent.putExtra("title", movies.get(position).getTitle());
+////        Log.d(TAG, "THIS IS INTENT:   " + intent.getStringExtra("title"));
+////
+//
+////
+        launchDetailActivity(position);
+//        Bundle bundle = new Bundle();
+//        bundle.putParcelable("MOVIE_PARCEL", Parcels.wrap(movies.get(position)));
+//        intent.putExtra("MOVIE_EXTRA", bundle);
+//        startActivity(intent);
 
-        //launchDetailActivity(clickedItemIndex);
+
     }
 
-//    public void launchDetailActivity( Movie movie) {
+    public void launchDetailActivity(int position) {
+
+//        Movie movie = movies.get(position);
 //        Intent intent = new Intent(this, DetailActivity.class);
-//
-//
-//
-//        intent.putExtra(DetailActivity.class, this);
-//        //intent.putExtra("movie_chosen", mChosen);
+//        Log.d(TAG, "Movie title iz " + movie.getTitle());
+////        Bundle bundle = new Bundle();
+////        bundle.putParcelable("MOVIE_PARCEL", Parcels.wrap(movies.get(position)));
+////        intent.putExtra("MOVIE_EXTRA", bundle);
 //        startActivity(intent);
-//    }
+
+
+        //intent.putExtra(DetailActivity.class, this);
+        //intent.putExtra("Movie", movie);
+        //startActivity(intent);
+    }
 //
 //
 //
@@ -169,19 +194,19 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Post
 //    public boolean onOptionsItemSelected(MenuItem item) {
 //        int id = item.getItemId();
 //
-//        if (id == R.id.action_most_popular) {
-//            sortBy = popularity.desc;
-//            getTopMovies();
-//            return true;
-//
-//        }
-//        if (id == R.id.Action_highest_rated) {
-//
-//
-//            sortBy = vote_average.desc;
-//            getTopMovies();
-//            return true;
-//        }
+////        if (id == R.id.action_most_popular) {
+////            sortBy = popularity.desc;
+////            getTopMovies();
+////            return true;
+////
+////        }
+////        if (id == R.id.Action_highest_rated) {
+////
+////
+////            sortBy = vote_average.desc;
+////            getTopMovies();
+////            return true;
+////        }
 //
 //        return super.onOptionsItemSelected(item);
 //    }
