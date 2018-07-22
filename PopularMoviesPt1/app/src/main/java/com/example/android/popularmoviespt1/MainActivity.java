@@ -156,7 +156,7 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Post
 ////
 //
 ////
-        launchDetailActivity(position);
+        //launchDetailActivity(position);
 //        Bundle bundle = new Bundle();
 //        bundle.putParcelable("MOVIE_PARCEL", Parcels.wrap(movies.get(position)));
 //        intent.putExtra("MOVIE_EXTRA", bundle);
