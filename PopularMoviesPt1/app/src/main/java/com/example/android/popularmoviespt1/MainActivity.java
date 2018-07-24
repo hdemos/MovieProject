@@ -39,12 +39,13 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Post
 
     private RecyclerView xRecyclerView;
     private MovieAdapter xAdapter;
-    private static final String TAG = MainActivity.class.getSimpleName();
+    private static String TAG = MainActivity.class.getSimpleName();
     public static List<Movie> movies = new ArrayList<>();
     MovieAdapter.PosterItemClickListener listener;
 
     public ArrayList<Movie> mChosen = new ArrayList<>();
     //OnItemClickListener listener;
+    private Toast mToast;
 
 
 
@@ -127,88 +128,33 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Post
     }
 
     @Override
-    public void onListItemClick(int position) {
-        //Bundle extras = getIntent().getExtras();
+    public void onListItemClick( int clickedItemIndex) {
 
-
-        //String poster_url = (String) getIntent().getStringExtra("poster_img");
-        //load poster from url
-
-            //int position = clickedItemIndex;
-            //displayMovie(position);
-        //Movie movie = movies.get(position);
-            //Log.d(TAG, movieChosen.getTitle() + " \b" +movieChosen.getOverview());
-
-       //mChosen.add(movies.get(position));
-
-//        //List<Movie> mChosen = (List<>) movies<position>;
-        Movie movie = movies.get(position);
-        Intent intent = new Intent(this, DetailActivity.class);
-        intent.putExtra(DetailActivity.EXTRA_POSITION, movie);
-        startActivity(intent);
-//
-//
-//
-//        intent.putExtra(DetailActivity.EXTRA_POSITION, position);
-////        intent.putExtra("Movie", Parcels.wrap(movies.get(position)));
-////        intent.putExtra("title", movies.get(position).getTitle());
-////        Log.d(TAG, "THIS IS INTENT:   " + intent.getStringExtra("title"));
-////
-//
-////
-        //launchDetailActivity(position);
-//        Bundle bundle = new Bundle();
-//        bundle.putParcelable("MOVIE_PARCEL", Parcels.wrap(movies.get(position)));
-//        intent.putExtra("MOVIE_EXTRA", bundle);
-//        startActivity(intent);
-
-
-    }
-
-    public void launchDetailActivity(int position) {
-
-//        Movie movie = movies.get(position);
+//WORKING ISH
 //        Intent intent = new Intent(this, DetailActivity.class);
-//        Log.d(TAG, "Movie title iz " + movie.getTitle());
-////        Bundle bundle = new Bundle();
-////        bundle.putParcelable("MOVIE_PARCEL", Parcels.wrap(movies.get(position)));
-////        intent.putExtra("MOVIE_EXTRA", bundle);
+//        Movie movie = movies.get(clickedItemIndex);
+//        intent.putExtra(DetailActivity.EXTRA_POSITION, movie);
+//        Log.d(TAG, " " + clickedItemIndex + " ");
 //        startActivity(intent);
+////
+////TO HERE
+////
 
 
-        //intent.putExtra(DetailActivity.class, this);
-        //intent.putExtra("Movie", movie);
-        //startActivity(intent);
+
+        if (mToast != null) {
+            mToast.cancel();
+        }
+
+
+        String toastMessage = "Item #" + clickedItemIndex + " clicked.";
+        mToast = Toast.makeText(this, toastMessage, Toast.LENGTH_LONG);
+
+        mToast.show();
+
+
     }
-//
-//
-//
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        MenuInflater inflater = getMenuInflater();
-//        inflater.inflate(R.menu.main_menu, menu);
-//        return true;
-//    }
-//
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        int id = item.getItemId();
-//
-////        if (id == R.id.action_most_popular) {
-////            sortBy = popularity.desc;
-////            getTopMovies();
-////            return true;
-////
-////        }
-////        if (id == R.id.Action_highest_rated) {
-////
-////
-////            sortBy = vote_average.desc;
-////            getTopMovies();
-////            return true;
-////        }
-//
-//        return super.onOptionsItemSelected(item);
-//    }
+
+
 }
 

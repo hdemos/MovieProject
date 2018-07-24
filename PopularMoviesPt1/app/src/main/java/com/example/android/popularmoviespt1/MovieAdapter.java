@@ -1,6 +1,7 @@
 package com.example.android.popularmoviespt1;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -30,51 +31,17 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     private List<Movie> xMovieList = new ArrayList<>();
     private LayoutInflater xInflater;
     private Context xContext;
-    private PosterItemClickListener xOnClickListener;
+    final private PosterItemClickListener xOnClickListener;
     private static final String TAG = MovieAdapter.class.getSimpleName();
 
 
 
-
-
-    public class MovieViewHolder extends RecyclerView.ViewHolder implements  View.OnClickListener{
-
-        public ImageView imageView;
-        public TextView title;
-        public LinearLayout posterLayout;
-
-        public MovieViewHolder(View itemView, PosterItemClickListener xOnClickListener) {
-            super(itemView);
-            posterLayout = (LinearLayout) itemView.findViewById(R.id.posterLayout);
-            imageView = (ImageView) itemView.findViewById(R.id.imageView);
-            itemView.setOnClickListener(this);
-            //title = (TextView) itemView.findViewById(R.id.title);
-
-
-        }
-        @Override
-        public void onClick(View v) {
-            int clickedPosition = getAdapterPosition();
-            Log.d(TAG, "clicked position: " + clickedPosition);
-//            Intent i = new Intent(MainActivity.this, DetailActivity.class);
-//            intent.putExtra("title", )
-            Log.d(TAG, "set xOnClickListener");
-            ////THE CODE STOPS HERE AND GETS AN EMPTY ARRAY :(
-            xOnClickListener.onListItemClick(clickedPosition);
-            //xMovieList.onListItemClick(clickedPosition);
-
-            //MainActivity.onListItemClick(clickedPosition);
-            //MainActivity.launchDetailActivity xyz = new launchDetailActivity(clickedPosition);
-
-           // MainActivity.launchDetailActivity(clickedPosition);
-            Log.d(TAG, "Launched detail activity)");
-
-
-        }
+    public interface PosterItemClickListener {
+        void onListItemClick(int clickedItemIndex);
     }
+
     public MovieAdapter(Context context, List<Movie> movies, PosterItemClickListener listener)
     {
-
         this.xContext = context;
         //this.xInflater = LayoutInflater.from(context);
         this.xMovieList = movies;
@@ -82,36 +49,28 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     }
 
     @Override
-    public MovieAdapter.MovieViewHolder onCreateViewHolder( ViewGroup parent, int viewType)
+    public MovieViewHolder onCreateViewHolder( ViewGroup parent, int viewType)
     {
+        Context context = parent.getContext();
+        LayoutInflater inflater = LayoutInflater.from(context);
+        View view = inflater.inflate(R.layout.r_movie, parent, false);
+        MovieViewHolder viewHolder = new MovieViewHolder(view);
+        return viewHolder;
         //View view = xInflater.from(parent.getContext()).inflate(R.layout.r_movie, parent, false);
-        View view = xInflater.from(parent.getContext()).inflate(R.layout.r_movie, parent, false);
-        return new MovieViewHolder(view, xOnClickListener);
-
-
-
+        //return new MovieViewHolder(view);
     }
-
     @Override
     public void onBindViewHolder(MovieViewHolder holder, int position)
     {
-          Movie movie = xMovieList.get(position);
-          //holder.vote_average.setText(String.valueOf(movie.getVote_average()));
+        Log.d(TAG, "#" + position);
+        Movie movie = xMovieList.get(position);
+        //holder.bind(position)
+        //holder.vote_average.setText(String.valueOf(movie.getVote_average()));
 //        //TODO 7.2: Picasso image loading
         Picasso.with(xContext).load(movie.getPoster()).placeholder(R.color.colorAccent).into(holder.imageView);
         //Picasso.with(xContext).load(movie.getPoster()).into(holder.imageView);
-        Movie movie2 = xMovieList.get(position+1);
         Log.d(TAG, "Title is a: " + xMovieList.get(position).getTitle());
-        Log.d(TAG, "Title is: " + movie2);
         Log.d(TAG, "Poster location is: " + xMovieList.get(position).getPoster());
-        Log.d(TAG, "Title is: " + xMovieList.get(position).getTitle());
-        //holder.title.setText(movie.getTitle());
-        //holder.posterLayout.setText(movie.getPoster());
-        //get remainder of things you want to pass here?
-
-
-
-
     }
 
     @Override
@@ -129,11 +88,35 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         notifyDataSetChanged();
     }
 
-    public interface PosterItemClickListener {
+    public class MovieViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        public ImageView imageView;
+        public LinearLayout posterLayout;
 
-        void onListItemClick(int clickItemIndex);
-        //Log.d(TAG, clickItemIndex);
+        public MovieViewHolder(View itemView) {
+            super(itemView);
+            posterLayout = (LinearLayout) itemView.findViewById(R.id.posterLayout);
+            imageView = (ImageView) itemView.findViewById(R.id.imageView);
+            itemView.setOnClickListener(this);
+
+        }
+        @Override
+        public void onClick(View v) {
+            int clickedPosition = getAdapterPosition();
+            Log.d(TAG, "clicked position: " + clickedPosition);
+            Log.d(TAG, "set xOnClickListener");
+            ////THE CODE STOPS HERE AND GETS AN EMPTY ARRAY :(
+            xOnClickListener.onListItemClick(clickedPosition);
+            Log.d(TAG, "Launched detail activity)");
+
+        }
     }
+
+
+
+
+
+
+
 
 
 
