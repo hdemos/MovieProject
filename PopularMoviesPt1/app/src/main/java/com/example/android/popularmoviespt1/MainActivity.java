@@ -47,6 +47,8 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Post
     //OnItemClickListener listener;
     private Toast mToast;
 
+    private static int NUM_LIST_ITEMS = 0;
+
 
 
 
@@ -68,13 +70,13 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Post
 
         xRecyclerView = findViewById(R.id.recyclerView);
         xRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
-        //listener = this;
+        listener = this;
 
         //xAdapter = new MovieAdapter(getApplicationContext(), movies, R.layout.r_movie, this);
 
-        xAdapter = new MovieAdapter(getApplicationContext(), movies, listener);  //has different
+        //xAdapter = new MovieAdapter(int NUM_LIST_ITEMS, getApplicationContext(), movies, listener);  //has different
 
-        xRecyclerView.setAdapter(xAdapter);
+        //xRecyclerView.setAdapter(xAdapter);
         //xRecyclerView.setOnClickListener(listener);
         getTopMovies(getApplicationContext(), listener);
 
@@ -96,7 +98,7 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Post
                         List<Movie> movies = response.body().getResults();
                         if (xAdapter == null) {
                             Log.d(TAG, "Received " + movies.size() + " movies like: " + movies.get(1));
-                           xAdapter = new MovieAdapter(context, movies, listener);  //has different
+                           xAdapter = new MovieAdapter(NUM_LIST_ITEMS, context, movies, listener);  //has different
 
                             xRecyclerView.setAdapter(xAdapter);
                         } else {
@@ -127,33 +129,45 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Post
 
     }
 
-    @Override
-    public void onListItemClick( int clickedItemIndex) {
+    public void onClick(Movie movie) {
 
 //WORKING ISH
-//        Intent intent = new Intent(this, DetailActivity.class);
-//        Movie movie = movies.get(clickedItemIndex);
-//        intent.putExtra(DetailActivity.EXTRA_POSITION, movie);
-//        Log.d(TAG, " " + clickedItemIndex + " ");
-//        startActivity(intent);
+        Intent intent = new Intent(MainActivity.this, DetailActivity.class);
+        //Movie movie = movies.get(clickedItemIndex);
+        intent.putExtra(DetailActivity.EXTRA_POSITION, movie);
+        //Log.d(TAG, " " + clickedItemIndex + " ");
+        startActivity(intent);
 ////
 ////TO HERE
-////
-
-
-
-        if (mToast != null) {
-            mToast.cancel();
-        }
-
-
-        String toastMessage = "Item #" + clickedItemIndex + " clicked.";
-        mToast = Toast.makeText(this, toastMessage, Toast.LENGTH_LONG);
-
-        mToast.show();
-
-
     }
+
+//    @Override
+//    public void onListItemClick( int clickedItemIndex) {
+//
+////WORKING ISH
+////        Intent intent = new Intent(this, DetailActivity.class);
+////        Movie movie = movies.get(clickedItemIndex);
+////        intent.putExtra(DetailActivity.EXTRA_POSITION, movie);
+////        Log.d(TAG, " " + clickedItemIndex + " ");
+////        startActivity(intent);
+//////
+//////TO HERE
+//////
+//
+//
+//
+//        if (mToast != null) {
+//            mToast.cancel();
+//        }
+//
+//
+//        String toastMessage = "Item #" + clickedItemIndex + " clicked.";
+//        mToast = Toast.makeText(this, toastMessage, Toast.LENGTH_LONG);
+//
+//        mToast.show();
+//
+//
+//    }
 
 
 }
