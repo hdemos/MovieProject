@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -93,14 +94,23 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     public class MovieViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public ImageView imageView;
         public LinearLayout posterLayout;
+        private TextView name;
 
         public MovieViewHolder(View itemView) {
             super(itemView);
             posterLayout = (LinearLayout) itemView.findViewById(R.id.posterLayout);
+            name = (TextView) itemView.findViewById(R.id.titleDetail);
             imageView = (ImageView) itemView.findViewById(R.id.imageView);
             itemView.setOnClickListener(this);
 
         }
+        public void bind(final Movie item, final AdapterView.OnItemClickListener listener) {
+            name.setText(item.getTitle());
+
+//            
+        }
+
+
         @Override
         public void onClick(View v) {
             int clickedPosition = getAdapterPosition();

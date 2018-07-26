@@ -33,38 +33,38 @@ public class DetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_detail);
         //get specific movie info
 
-        Movie movie = (Movie) Parcels.unwrap(getIntent().getParcelableExtra("Movie"));
-        String title = movie.getTitle();
-        Log.d(TAG, title);
+//        Movie movie = (Movie) Parcels.unwrap(getIntent().getParcelableExtra("Movie"));
+//        String title = movie.getTitle();
+//        Log.d(TAG, title);
+//
+//        Bundle extras = getIntent().getExtras();
+//        xTitle = findViewById(R.id.titleDetail);
+//        xOverView = findViewById(R.id.overview);
+//        xReleaseDate = findViewById(R.id.releaseDate);
+//        xUserRating = findViewById(R.id.userRating);
+//        imageView = findViewById(R.id.poster_iv);
 
-        Bundle extras = getIntent().getExtras();
-        xTitle = findViewById(R.id.titleDetail);
-        xOverView = findViewById(R.id.overview);
-        xReleaseDate = findViewById(R.id.releaseDate);
-        xUserRating = findViewById(R.id.userRating);
-        imageView = findViewById(R.id.poster_iv);
 
-
-        Intent intent = getIntent();
+        //Intent intent = getIntent();
        // Movie movie2 = intent.getParcelableExtra("Movie");
 
 //        String xTitle = movie.getTitle();
 //        Log.d(TAG, "title "+ xTitle);
 
 
-        if(intent==null) {
-            closeOnError();
-        }
-
-        int position = intent.getIntExtra(EXTRA_POSITION, DEFAULT_POSITION);
-        if (position == DEFAULT_POSITION) {
-            // EXTRA_POSITION not found in intent
-            closeOnError();
-            return;
-        }
-        //Movie movie = MainActivity.movies.get(position);
-        String title2 = intent.getStringExtra("title");
-        Log.d(TAG, title);
+//        if(intent==null) {
+//            closeOnError();
+//        }
+//
+//        int position = intent.getIntExtra(EXTRA_POSITION, DEFAULT_POSITION);
+//        if (position == DEFAULT_POSITION) {
+//            // EXTRA_POSITION not found in intent
+//            closeOnError();
+//            return;
+//        }
+//        //Movie movie = MainActivity.movies.get(position);
+//        String title2 = intent.getStringExtra("title");
+//        Log.d(TAG, title);
 
         //xTitle.setText(movie.getTitle());
 //        xOverView.setText(movie.getOverview());
