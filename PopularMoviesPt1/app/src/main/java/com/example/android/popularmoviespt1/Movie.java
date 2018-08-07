@@ -48,19 +48,6 @@ public class Movie implements Parcelable
     Movie() {
 
     }
-
-//    public Movie(String title, String poster_path, String overview) {
-//
-//        this.title = title;
-//
-//        this.poster_path = poster_path;
-//        this.overview = overview;
-//        this.release_date = release_date;
-//        this.vote_average = vote_average;
-//
-//
-//
-//    }
     public Movie(String Title, boolean Adult, String Poster_path, String Overview, String Release_date, Double Vote_average) {
         //note: we are setting the items here because we are not changing the data once recieved
         //setters are added in the event this changes and we want to edit data
@@ -81,11 +68,11 @@ public class Movie implements Parcelable
     }
     public Movie(Parcel parcel) {
         //pulling out data
-//        title = parcel.readString();
-//        poster_path = parcel.readString();
-//        overview = parcel.readString();
-//        release_date = parcel.readString();
-//        vote_average = parcel.readDouble();
+        title = parcel.readString();
+        poster_path = parcel.readString();
+        overview = parcel.readString();
+        release_date = parcel.readString();
+        //vote_average = parcel.readDouble();
 
 
     }
@@ -186,8 +173,10 @@ public class Movie implements Parcelable
         dest.writeString(overview);
         //dest.writeString(backdrop);
         dest.writeString(release_date);
-        dest.writeDouble(vote_average);
+        //dest.writeDouble(vote_average);
         //dest.writeBooleanArray(hasVideo);?
+
+
 
 
     }

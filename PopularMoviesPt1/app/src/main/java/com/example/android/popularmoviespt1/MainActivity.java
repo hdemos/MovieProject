@@ -129,13 +129,11 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Post
 
     }
 
-    public void onClick(Movie movie) {
+    public void onClick(int position, Movie movie) {
 
 //WORKING ISH
-        Intent intent = new Intent(MainActivity.this, DetailActivity.class);
-        //Movie movie = movies.get(clickedItemIndex);
+        Intent intent = new Intent(this, DetailActivity.class);
         intent.putExtra(DetailActivity.EXTRA_POSITION, movie);
-        //Log.d(TAG, " " + clickedItemIndex + " ");
         startActivity(intent);
 ////
 ////TO HERE

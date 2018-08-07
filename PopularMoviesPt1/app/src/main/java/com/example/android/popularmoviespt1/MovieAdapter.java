@@ -38,7 +38,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 
 
     public interface PosterItemClickListener {
-        void onClick(Movie movie);
+        void onClick(int position, Movie movie);
     }
 
     public MovieAdapter(int numberOfItems, Context context, List<Movie> movies, PosterItemClickListener listener)
@@ -64,7 +64,8 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     @Override
     public void onBindViewHolder(MovieViewHolder holder, int position)
     {
-        
+        //holder.bind(movies.get(position), listener);
+
         Log.d(TAG, "#" + position);
         Movie movie = xMovieList.get(position);
         //holder.bind(position)
@@ -80,6 +81,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     public int getItemCount() {
 
         return (xMovieList == null) ? 0 : xMovieList.size();
+
     }
 
     public void setxMovieList(List<Movie> movieList)
@@ -117,8 +119,11 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
             Log.d(TAG, "clicked position: " + clickedPosition);
             Log.d(TAG, "set xOnClickListener");
             ////THE CODE STOPS HERE AND GETS AN EMPTY ARRAY :(
-            xOnClickListener.onClick(xMovieList.get(clickedPosition));
+            Movie movie2 = xMovieList.get(clickedPosition);
+            Log.d(TAG, " " + movie2.getTitle() + " ");
+            xOnClickListener.onClick(clickedPosition, movie2);
             Log.d(TAG, "Launched detail activity)");
+
 
         }
     }

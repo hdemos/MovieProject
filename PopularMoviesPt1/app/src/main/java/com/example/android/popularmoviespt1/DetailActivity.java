@@ -33,16 +33,35 @@ public class DetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_detail);
         //get specific movie info
 
-//        Movie movie = (Movie) Parcels.unwrap(getIntent().getParcelableExtra("Movie"));
-//        String title = movie.getTitle();
-//        Log.d(TAG, title);
+        Movie movie = (Movie) getIntent().getParcelableExtra(EXTRA_POSITION);
+        //Movie movie = (Movie) Parcels.unwrap(getIntent().getParcelableExtra("main_title")); //wrong, simple parcelable object
+        //sets strings to correct movie
+        String title = movie.getTitle();
+        Log.d(TAG, "main title: " + title);
+        String posterPath = movie.getPoster();
+        String overview = movie.getOverview();
+        String releaseDate = movie.getRelease_date();
+
 //
-//        Bundle extras = getIntent().getExtras();
-//        xTitle = findViewById(R.id.titleDetail);
-//        xOverView = findViewById(R.id.overview);
-//        xReleaseDate = findViewById(R.id.releaseDate);
-//        xUserRating = findViewById(R.id.userRating);
-//        imageView = findViewById(R.id.poster_iv);
+        //sets views and correct text
+        xTitle = findViewById(R.id.titleDetail);
+        xOverView = findViewById(R.id.overview_tv);//overview title
+        xReleaseDate = findViewById(R.id.releaseDate_tv);
+        xUserRating = findViewById(R.id.userRating);
+        imageView = findViewById(R.id.poster_iv);
+
+
+        xTitle.setText(title);
+        xOverView.setText(overview);
+        xReleaseDate.setText(releaseDate);
+        String posterUri = movie.getPoster();
+        Picasso.with(this).load(posterUri).into(imageView);
+
+
+
+
+
+
 
 
         //Intent intent = getIntent();
