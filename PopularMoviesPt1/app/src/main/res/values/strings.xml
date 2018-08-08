@@ -3,14 +3,10 @@
 
     <!-- Example title data copied from Sandwich logic-->
     <!-- Detail Activity-->
-    <string name="detail_main_title_label">Title: </string>
     <string name="detail_main_title">Title</string>
-    <string name="detail_overview_label">Description: </string>
     <string name="detail_overview">Overview</string>
-    <string name="detail_date_released_label">Released(YYYY-MM-DD):</string>
-    <string name="detail_date_released">Jan-00-2000</string>
-    <string name="detail_ingredients_label"> </string>
-
+    <string name="detail_date_released">00-00-2000</string>
+    <string name="detail_rating">x/10</string>
     <!-- Content descriptions-->
     <string name="sandwich_picture_content_description">Sandwich picture</string>
 

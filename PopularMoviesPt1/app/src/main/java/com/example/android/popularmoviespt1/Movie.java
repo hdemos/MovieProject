@@ -72,7 +72,7 @@ public class Movie implements Parcelable
         poster_path = parcel.readString();
         overview = parcel.readString();
         release_date = parcel.readString();
-        //vote_average = parcel.readDouble();
+        vote_average = parcel.readDouble();
 
 
     }
@@ -173,7 +173,7 @@ public class Movie implements Parcelable
         dest.writeString(overview);
         //dest.writeString(backdrop);
         dest.writeString(release_date);
-        //dest.writeDouble(vote_average);
+        dest.writeDouble(vote_average);
         //dest.writeBooleanArray(hasVideo);?
 
 

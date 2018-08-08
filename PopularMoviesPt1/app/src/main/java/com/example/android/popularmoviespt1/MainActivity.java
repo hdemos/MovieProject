@@ -131,41 +131,11 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Post
 
     public void onClick(int position, Movie movie) {
 
-//WORKING ISH
+
         Intent intent = new Intent(this, DetailActivity.class);
         intent.putExtra(DetailActivity.EXTRA_POSITION, movie);
         startActivity(intent);
-////
-////TO HERE
-    }
-
-//    @Override
-//    public void onListItemClick( int clickedItemIndex) {
-//
-////WORKING ISH
-////        Intent intent = new Intent(this, DetailActivity.class);
-////        Movie movie = movies.get(clickedItemIndex);
-////        intent.putExtra(DetailActivity.EXTRA_POSITION, movie);
-////        Log.d(TAG, " " + clickedItemIndex + " ");
-////        startActivity(intent);
-//////
-//////TO HERE
-//////
-//
-//
-//
-//        if (mToast != null) {
-//            mToast.cancel();
-//        }
-//
-//
-//        String toastMessage = "Item #" + clickedItemIndex + " clicked.";
-//        mToast = Toast.makeText(this, toastMessage, Toast.LENGTH_LONG);
-//
-//        mToast.show();
-//
-//
-//    }
+   }
 
 
 }

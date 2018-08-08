@@ -33,6 +33,7 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation 'org.parceler:parceler-api:1.1.11'
     annotationProcessor 'org.parceler:parceler:1.1.11'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
     //TODO 1: add recyclerview & picasso dependencies
 }
 

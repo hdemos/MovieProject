@@ -26,6 +26,8 @@ public class DetailActivity extends AppCompatActivity {
     private TextView xReleaseDate;
     private TextView xUserRating;
     private ImageView imageView;
+    private String releaseDate;
+    private String ratingText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,22 +42,32 @@ public class DetailActivity extends AppCompatActivity {
         Log.d(TAG, "main title: " + title);
         String posterPath = movie.getPoster();
         String overview = movie.getOverview();
-        String releaseDate = movie.getRelease_date();
+        releaseDate = movie.getRelease_date();
+        Double rating = movie.getVote_average();
+
+
 
 //
         //sets views and correct text
         xTitle = findViewById(R.id.titleDetail);
-        xOverView = findViewById(R.id.overview_tv);//overview title
-        xReleaseDate = findViewById(R.id.releaseDate_tv);
+        xOverView = findViewById(R.id.overview);//overview title
+        xReleaseDate = findViewById(R.id.releaseDate);
         xUserRating = findViewById(R.id.userRating);
         imageView = findViewById(R.id.poster_iv);
 
 
+
         xTitle.setText(title);
         xOverView.setText(overview);
+        ratingLogic(rating);
+        xUserRating.setText(ratingText);
+        releaseYearLogic(releaseDate);
         xReleaseDate.setText(releaseDate);
         String posterUri = movie.getPoster();
         Picasso.with(this).load(posterUri).into(imageView);
+
+
+
 
 
 
@@ -122,6 +134,19 @@ public class DetailActivity extends AppCompatActivity {
     private void closeOnError() {
         finish();
         Toast.makeText(this, R.string.detail_error_message, Toast.LENGTH_SHORT).show();
+    }
+
+    private void releaseYearLogic(String fullDate) {
+
+            fullDate = fullDate.substring(0, fullDate.indexOf('-'));
+            releaseDate = fullDate;
+
+    }
+
+    private void ratingLogic(Double rating) {
+        //conversion logic
+        ratingText = rating + "/10";
+
     }
 
 
