@@ -1,9 +1,16 @@
 package com.example.android.popularmoviespt1;
 
+import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,7 +40,27 @@ public class DetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
+//        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+//        setSupportActionBar(myToolbar);
+        ActionBar actionBar = getActionBar();
+//        actionBar.setHomeButtonEnabled(true);
+//        actionBar.setDisplayHomeAsUpEnabled(true);
+
+//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+//        setSupportActionBar(toolbar);
         //get specific movie info
+        //Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
+
+        //mToolbar.setNavigationIcon(R.drawable.ic_arrow);
+//        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+//
+//            @Override
+//            public void onClick(View view) {
+//
+//                // Your code
+//                finish();
+//            }
+        //});
 
         Movie movie = (Movie) getIntent().getParcelableExtra(EXTRA_POSITION);
         //Movie movie = (Movie) Parcels.unwrap(getIntent().getParcelableExtra("main_title")); //wrong, simple parcelable object
@@ -46,7 +73,6 @@ public class DetailActivity extends AppCompatActivity {
         Double rating = movie.getVote_average();
 
 
-
 //
         //sets views and correct text
         xTitle = findViewById(R.id.titleDetail);
@@ -54,7 +80,6 @@ public class DetailActivity extends AppCompatActivity {
         xReleaseDate = findViewById(R.id.releaseDate);
         xUserRating = findViewById(R.id.userRating);
         imageView = findViewById(R.id.poster_iv);
-
 
 
         xTitle.setText(title);
@@ -67,17 +92,8 @@ public class DetailActivity extends AppCompatActivity {
         Picasso.with(this).load(posterUri).into(imageView);
 
 
-
-
-
-
-
-
-
-
-
         //Intent intent = getIntent();
-       // Movie movie2 = intent.getParcelableExtra("Movie");
+        // Movie movie2 = intent.getParcelableExtra("Movie");
 
 //        String xTitle = movie.getTitle();
 //        Log.d(TAG, "title "+ xTitle);
@@ -109,7 +125,6 @@ public class DetailActivity extends AppCompatActivity {
 //        System.out.print(mChosen);
 
 
-
         //String poster_url = (String) getIntent().getStringExtra("poster_img");
         //load poster from url
 //        if(extras!=null) {
@@ -123,12 +138,11 @@ public class DetailActivity extends AppCompatActivity {
 //            xReleaseDate.setText(movie.getRelease_date()));
 //            Picasso.with(this).load(movie.getPoster()).placeholder(R.color.colorAccent).into(imageView);
 
-       // }
+        // }
 
         //Picasso.with(this).load("https://i.pinimg.com/originals/a2/e4/c4/a2e4c4ace4ed0eb1a730359b514cbbb9.jpg").placeholder(R.color.colorAccent).into(imageView);
 
     }
-
 
 
     private void closeOnError() {
@@ -138,8 +152,8 @@ public class DetailActivity extends AppCompatActivity {
 
     private void releaseYearLogic(String fullDate) {
 
-            fullDate = fullDate.substring(0, fullDate.indexOf('-'));
-            releaseDate = fullDate;
+        fullDate = fullDate.substring(0, fullDate.indexOf('-'));
+        releaseDate = fullDate;
 
     }
 
@@ -149,8 +163,21 @@ public class DetailActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        return super.onOptionsItemSelected(item);
+
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.detail_menu, menu);
+        return true;
+    }
 
 }
+
 
 
 

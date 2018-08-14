@@ -8,25 +8,17 @@
     <string name="detail_date_released">00-00-2000</string>
     <string name="detail_rating">x/10</string>
     <!-- Content descriptions-->
-    <string name="sandwich_picture_content_description">Sandwich picture</string>
+
 
     <!-- Error messages-->
-    <string name="detail_error_message">Sandwich data not available</string>
+    <string name="detail_error_message">Data not available</string>
 
 
-    <string-array name="sandwich_names">
-        <item>Ham and cheese sandwich</item>
-        <item>Bosna</item>
-        <item>Chivito</item>
-        <item>Club sandwich</item>
-        <item>Gua bao</item>
-        <item>Medianoche</item>
-        <item>Pljeskavica</item>
-        <item>Roujiamo</item>
-        <item>Shawarma</item>
-        <item>Vada Pav</item>
-    </string-array>
 
+    <string name="most_popular_search">Search Most Popular</string>
+    <string name="highest_rated_search">Search Highest Rated</string>
+    <string name="popular">Popular</string>
+    <string name="top_rated">Top Rated</string>
 
 
 </resources>

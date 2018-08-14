@@ -29,6 +29,9 @@ public interface MoviesAPIService {
     @GET("movie/top_rated")
     Call<MovieResponse> getTopRatedMovies(@Query("api_key") String API_KEY);
 
+    @GET("movie/popular")
+    Call<MovieResponse> getPopularMovies(@Query("api_key") String API_KEY);
+
 //    @GET("movie/{id}")
 //    Call<MovieResponse> getMovieDetails(@Path("id") int id, @Query("api_key") String API_KEY);
 

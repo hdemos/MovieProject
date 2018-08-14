@@ -11,7 +11,7 @@
         android:adjustViewBounds="true"/>
     
 
-    <!--TODO 5: Create imageview xml in layout resource -->
+    <!--Completed 5: Create imageview xml in layout resource -->
 
 
 </LinearLayout>

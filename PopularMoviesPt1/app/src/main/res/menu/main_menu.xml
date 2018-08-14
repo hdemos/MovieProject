@@ -2,4 +2,31 @@
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
+
+    <item
+        android:id="@+id/action_order"
+        android:title="Order By"
+        app:showAsAction="ifRoom|withText">
+        <menu>
+            <item
+                android:id="@+id/action_most_popular"
+                android:title="@string/most_popular_search">
+            </item>
+            <item
+                android:id="@+id/action_highest_rated"
+                android:title="@string/highest_rated_search">
+            </item>
+        </menu>
+    </item>
+    <item
+        android:id="@+id/action_settings"
+        android:title="Settings">
+    </item>
+
+
+
+
+
+
+
 </menu>
