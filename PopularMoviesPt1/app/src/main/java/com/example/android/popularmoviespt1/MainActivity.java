@@ -67,17 +67,18 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Post
 
         if(API_KEY.isEmpty()) {
             Toast.makeText(getApplicationContext(), "Please put in your API Key in PopMovieUtils class.", Toast.LENGTH_LONG).show();
-            //for when other test the code
+            System.out.print("ERROR: Please put in your API Key in PopMovieUtils class.");
+            //for when others test the code
         }
 
 
 
-        xRecyclerView = findViewById(R.id.recyclerView);
-        xRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
-        listener = this;
-
-        getTopMovies(getApplicationContext(), listener);
-        ActionBar actionBar = getActionBar();
+            xRecyclerView = findViewById(R.id.recyclerView);
+            xRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+            listener = this;
+        if(!API_KEY.isEmpty()){
+            getTopMovies(getApplicationContext(), listener);
+        }
 
 
 
