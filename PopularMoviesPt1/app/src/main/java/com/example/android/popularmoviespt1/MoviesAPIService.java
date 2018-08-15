@@ -19,7 +19,6 @@ import retrofit2.http.Query;
 
 public interface MoviesAPIService {
 
-    final static String API_KEY = "69e9f8e34637b9e6f6f8e56ce742d1dc";
     //https://api.themoviedb.org/3/movie/76341?api_key={api_key}
 
         // Request method and URL specified in the annotation

@@ -58,21 +58,17 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         View view = inflater.inflate(R.layout.r_movie, parent, false);
         MovieViewHolder viewHolder = new MovieViewHolder(view);
         return viewHolder;
-        //View view = xInflater.from(parent.getContext()).inflate(R.layout.r_movie, parent, false);
-        //return new MovieViewHolder(view);
+
     }
     @Override
     public void onBindViewHolder(MovieViewHolder holder, int position)
     {
-        //holder.bind(movies.get(position), listener);
+
 
         Log.d(TAG, "#" + position);
         Movie movie = xMovieList.get(position);
-        //holder.bind(position)
-        //holder.vote_average.setText(String.valueOf(movie.getVote_average()));
 //        //TODO 7.2: Picasso image loading
         Picasso.with(xContext).load(movie.getPoster()).placeholder(R.color.colorAccent).into(holder.imageView);
-        //Picasso.with(xContext).load(movie.getPoster()).into(holder.imageView);
         Log.d(TAG, "Title is a: " + xMovieList.get(position).getTitle());
         Log.d(TAG, "Poster location is: " + xMovieList.get(position).getPoster());
     }
@@ -86,8 +82,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 
     public void setxMovieList(List<Movie> movieList)
     {
-//        this.xMovieList.clear();
-//        this.xMovieList.addAll(movieList);
+
         xMovieList = movieList;
         //make sure to notifychange or will crash
         notifyDataSetChanged();
