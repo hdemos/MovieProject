@@ -50,7 +50,6 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Post
     public String sortBy = "popular";
 
     public ArrayList<Movie> mChosen = new ArrayList<>();
-    //OnItemClickListener listener;
     private Toast mToast;
 
     private static int NUM_LIST_ITEMS = 0;
@@ -71,25 +70,15 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Post
             //for when other test the code
         }
 
-        //String[] movieList = getResources().getStringArray(R.array.sandwich_names);
-        //Log.i("Main_Activity", "got the following for movie names: " + movieList[1]);
 
 
         xRecyclerView = findViewById(R.id.recyclerView);
         xRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
         listener = this;
 
-        //xAdapter = new MovieAdapter(getApplicationContext(), movies, R.layout.r_movie, this);
-
-        //xAdapter = new MovieAdapter(int NUM_LIST_ITEMS, getApplicationContext(), movies, listener);  //has different
-
-        //xRecyclerView.setAdapter(xAdapter);
-        //xRecyclerView.setOnClickListener(listener);
         getTopMovies(getApplicationContext(), listener);
         ActionBar actionBar = getActionBar();
-        //actionBar.setTitle("Top Movies by Popularity");
-        //actionBar.show();
-        //getActionBar().setDisplayHomeAsUpEnabled(true);
+
 
 
     }
@@ -144,10 +133,9 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Post
         }
     }
 
-    
+
 
     public void onClick(int position, Movie movie) {
-
 
         Intent intent = new Intent(this, DetailActivity.class);
         intent.putExtra(DetailActivity.EXTRA_POSITION, movie);

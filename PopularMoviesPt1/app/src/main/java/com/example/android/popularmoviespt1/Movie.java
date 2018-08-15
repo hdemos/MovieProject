@@ -45,25 +45,18 @@ public class Movie implements Parcelable
     public static final String TMDB_IMAGE_PATH = "http://image.tmdb.org/t/p/w500";
 
 
-    Movie() {
 
-    }
-    public Movie(String Title, boolean Adult, String Poster_path, String Overview, String Release_date, Double Vote_average) {
-        //note: we are setting the items here because we are not changing the data once recieved
-        //setters are added in the event this changes and we want to edit data
+    public Movie(String Title, String Poster_path, String Overview, String Release_date, Double Vote_average) {
 
-        //this.title = title;
 
-        //this.poster_path = poster_path;
-        //this.overview = overview;
+
         title = Title;
         poster_path = Poster_path;
         overview = Overview;
         release_date = Release_date;
         vote_average = Vote_average;
 
-        //setRelease_date(release_date);
-        //setVote_average(vote_average);
+
 
     }
     public Movie(Parcel parcel) {
@@ -155,13 +148,7 @@ public class Movie implements Parcelable
     public void setHasVideo(boolean hasVideo) {
         this.hasVideo = hasVideo;
     }
-    //    public static class MovieResult {
-//        private List<Movie> results;
-//
-//        public List<Movie> getResults() {
-//            return results; //pt2
-//        }
-//    }
+
 
     @Override
     public int describeContents() {return 0;}
@@ -174,7 +161,7 @@ public class Movie implements Parcelable
         //dest.writeString(backdrop);
         dest.writeString(release_date);
         dest.writeDouble(vote_average);
-        //dest.writeBooleanArray(hasVideo);?
+        //dest.writeBooleanArray(hasVideo);
 
 
 
@@ -196,31 +183,5 @@ public class Movie implements Parcelable
         }
     };
 
-//    @Override
-//    public int describeContents() {
-//        return 0;
-//    }
 //
-//    @Override
-//    public void writeToParcel(Parcel dest, int flags) {
-//        dest.writeString(title);
-//        dest.writeString(poster_path);
-//        dest.writeString(overview);
-//        //dest.writeString(backdrop);
-//        dest.writeString(release_date);
-//        dest.writeDouble(vote_average);
-////        if (id == null) {
-////            dest.writeByte((byte) 0);
-////        } else {
-////            dest.writeByte((byte) 1);
-////            dest.writeInt(id);
-////        }
-////        if (vote_average == null) {
-////            dest.writeByte((byte) 0);
-////        } else {
-////            dest.writeByte((byte) 1);
-////            dest.writeDouble(vote_average);
-////        }
-////        dest.writeByte((byte) (hasVideo ? 1 : 0));
-//   }
 }

@@ -40,31 +40,10 @@ public class DetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
-//        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
-//        setSupportActionBar(myToolbar);
-        ActionBar actionBar = getActionBar();
-//        actionBar.setHomeButtonEnabled(true);
-//        actionBar.setDisplayHomeAsUpEnabled(true);
 
-//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
-        //get specific movie info
-        //Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
 
-        //mToolbar.setNavigationIcon(R.drawable.ic_arrow);
-//        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
-//
-//            @Override
-//            public void onClick(View view) {
-//
-//                // Your code
-//                finish();
-//            }
-        //});
 
         Movie movie = (Movie) getIntent().getParcelableExtra(EXTRA_POSITION);
-        //Movie movie = (Movie) Parcels.unwrap(getIntent().getParcelableExtra("main_title")); //wrong, simple parcelable object
-        //sets strings to correct movie
         String title = movie.getTitle();
         Log.d(TAG, "main title: " + title);
         String posterPath = movie.getPoster();
@@ -73,7 +52,7 @@ public class DetailActivity extends AppCompatActivity {
         Double rating = movie.getVote_average();
 
 
-//
+
         //sets views and correct text
         xTitle = findViewById(R.id.titleDetail);
         xOverView = findViewById(R.id.overview);//overview title
@@ -90,57 +69,6 @@ public class DetailActivity extends AppCompatActivity {
         xReleaseDate.setText(releaseDate);
         String posterUri = movie.getPoster();
         Picasso.with(this).load(posterUri).into(imageView);
-
-
-        //Intent intent = getIntent();
-        // Movie movie2 = intent.getParcelableExtra("Movie");
-
-//        String xTitle = movie.getTitle();
-//        Log.d(TAG, "title "+ xTitle);
-
-
-//        if(intent==null) {
-//            closeOnError();
-//        }
-//
-//        int position = intent.getIntExtra(EXTRA_POSITION, DEFAULT_POSITION);
-//        if (position == DEFAULT_POSITION) {
-//            // EXTRA_POSITION not found in intent
-//            closeOnError();
-//            return;
-//        }
-//        //Movie movie = MainActivity.movies.get(position);
-//        String title2 = intent.getStringExtra("title");
-//        Log.d(TAG, title);
-
-        //xTitle.setText(movie.getTitle());
-//        xOverView.setText(movie.getOverview());
-//        xUserRating.setText(String.valueOf(movie.getVote_average()));
-//        xReleaseDate.setText(movie.getRelease_date());
-//        Picasso.with(this).load(movie.getPoster()).placeholder(R.color.colorAccent).into(imageView);
-//
-//
-//        ArrayList<Movie> mChosen = new ArrayList<>();
-//        //mChosen = (ArrayList<Movie>) intent.getSerializableExtra("movie_chosen");
-//        System.out.print(mChosen);
-
-
-        //String poster_url = (String) getIntent().getStringExtra("poster_img");
-        //load poster from url
-//        if(extras!=null) {
-//            int position = extras.getInt("position");
-//            //displayMovie(position);
-//            Movie movie = MainActivity.movies.get(position);
-
-//            xTitle.setText(movie.getTitle());
-//            xOverView.setText(movie.getOverview());
-//            xUserRating.setText(String.valueOf(movie.getVote_average()));
-//            xReleaseDate.setText(movie.getRelease_date()));
-//            Picasso.with(this).load(movie.getPoster()).placeholder(R.color.colorAccent).into(imageView);
-
-        // }
-
-        //Picasso.with(this).load("https://i.pinimg.com/originals/a2/e4/c4/a2e4c4ace4ed0eb1a730359b514cbbb9.jpg").placeholder(R.color.colorAccent).into(imageView);
 
     }
 
